@@ -1,0 +1,149 @@
+# Software Requirements Specification (SRS)
+## Cine Verse — Animated Movie Search Platform
+
+**Version:** 1.0
+**Date:** August 2026
+
+---
+
+## 1. Introduction
+
+### 1.1 Purpose
+This document specifies the software requirements for Cine Verse, an animated movie search platform. It defines the functional and non-functional requirements, system interfaces, and constraints necessary for the design, development, and evaluation of the application.
+
+### 1.2 Intended Audience
+This SRS is intended for the project developer, project evaluators/instructors, and any collaborators involved in the design or review of the system.
+
+### 1.3 Project Scope
+Cine Verse allows users to search for movies by title and view detailed information — poster, plot, cast, genre, release year, and ratings — retrieved live from the TMDB API. The application emphasizes a smooth, animated user experience across all interface states (searching, loading, displaying results, and error handling). The system is a client-facing web application and does not include user accounts, persistent storage, or backend infrastructure in its initial scope.
+
+### 1.4 Definitions, Acronyms, and Abbreviations
+| Term | Definition |
+|---|---|
+| SRS | Software Requirements Specification |
+| API | Application Programming Interface |
+| TMDB | The Movie Database — third-party movie data provider |
+| UI | User Interface |
+| FR | Functional Requirement |
+| NFR | Non-Functional Requirement |
+
+### 1.5 References
+- TMDB API Documentation — https://www.themoviedb.org/documentation/api
+- Project Synopsis — Cine Verse (internal document)
+
+---
+
+## 2. Overall Description
+
+### 2.1 Product Perspective
+Cine Verse is a standalone, client-side web application. It is not part of a larger system and has no dependency on internal infrastructure — its sole external dependency is the TMDB API for movie data.
+
+### 2.2 Product Functions (High-Level)
+- Accept a search query and retrieve matching movies from TMDB.
+- Display a list of search results with poster thumbnails.
+- Allow the user to select a result and view full movie details.
+- Animate transitions between UI states (idle, loading, results, error).
+- Handle invalid input, empty results, and API failures gracefully.
+
+### 2.3 User Classes and Characteristics
+| User Class | Description |
+|---|---|
+| General User | Casual visitor searching for movie information; requires no technical knowledge. |
+| Evaluator/Instructor | Reviews the project for functional correctness and design quality. |
+
+### 2.4 Operating Environment
+- Runs in modern web browsers (Chrome, Firefox, Edge, Safari).
+- No installation required for end users; accessible via URL or local development server.
+- Compatible with desktop and mobile viewport sizes.
+
+### 2.5 Design and Implementation Constraints
+- Dependent on TMDB API availability, rate limits, and data accuracy.
+- Requires an active internet connection at all times (no offline mode).
+- Requires a valid TMDB API key, stored via environment variables and not committed to source control.
+
+### 2.6 Assumptions and Dependencies
+- TMDB API remains free/accessible under its current terms for the duration of development.
+- The chosen animation library (if any) remains compatible with the frontend framework used.
+
+---
+
+## 3. Functional Requirements
+
+### 3.1 Movie Search
+| ID | Requirement |
+|---|---|
+| FR-1 | The system shall provide a text input field for entering a movie title. |
+| FR-2 | The system shall query the TMDB API as the user types, using a debounce delay to limit request frequency. |
+| FR-3 | The system shall display a list of matching movies with poster thumbnail, title, and release year. |
+| FR-4 | The system shall display an appropriate message when no results are found. |
+
+### 3.2 Movie Detail View
+| ID | Requirement |
+|---|---|
+| FR-5 | The system shall allow the user to select a movie from the results list to view full details. |
+| FR-6 | The system shall display plot summary, cast, genre, runtime, release date, and rating for the selected movie. |
+| FR-7 | The system shall allow the user to return to the search results from the detail view. |
+
+### 3.3 Animation and Transitions
+| ID | Requirement |
+|---|---|
+| FR-8 | The system shall animate the appearance of search results (e.g., fade-in or staggered entry). |
+| FR-9 | The system shall display an animated loading indicator while awaiting API responses. |
+| FR-10 | The system shall animate the transition between the search view and the detail view. |
+| FR-11 | The system shall apply hover/interaction animations to result cards. |
+
+### 3.4 Error Handling
+| ID | Requirement |
+|---|---|
+| FR-12 | The system shall display a user-friendly error message if the TMDB API request fails. |
+| FR-13 | The system shall handle empty or whitespace-only search input without triggering an API call. |
+
+### 3.5 Responsive Design
+| ID | Requirement |
+|---|---|
+| FR-14 | The system shall render correctly on screen widths from mobile (≥320px) to desktop. |
+| FR-15 | The system shall maintain animation performance across supported device sizes. |
+
+---
+
+## 4. External Interface Requirements
+
+### 4.1 User Interfaces
+A single-page web interface consisting of a search bar, a results grid, and a detail view, connected by animated transitions.
+
+### 4.2 Hardware Interfaces
+None. The application runs entirely within a web browser on standard consumer hardware.
+
+### 4.3 Software Interfaces
+| Interface | Description |
+|---|---|
+| TMDB API | RESTful API used to fetch movie search results and details; requires an API key for authentication. |
+
+### 4.4 Communication Interfaces
+Standard HTTPS requests over the internet to TMDB's servers.
+
+---
+
+## 5. Non-Functional Requirements
+
+| ID | Category | Requirement |
+|---|---|---|
+| NFR-1 | Performance | Search results shall load within 2 seconds under normal network conditions. |
+| NFR-2 | Usability | The interface shall be navigable without instructions, using conventional search UI patterns. |
+| NFR-3 | Reliability | The system shall recover gracefully from failed API calls without crashing. |
+| NFR-4 | Security | The TMDB API key shall not be exposed in client-side source control (managed via environment variables). |
+| NFR-5 | Maintainability | Code shall be organized into reusable, modular components to support future feature additions. |
+| NFR-6 | Portability | The application shall function consistently across major modern browsers. |
+
+---
+
+## 6. Future Enhancements (Out of Current Scope)
+- User authentication and personalized watchlists
+- Advanced filtering (genre, year, rating)
+- Trailer integration
+- Dark/light theme toggle
+
+---
+
+## 7. Appendix
+- **Data Source Note:** TMDB is the current data provider and may be substituted for another movie data API depending on evolving project requirements; interface requirements in Section 4.3 would be updated accordingly.
