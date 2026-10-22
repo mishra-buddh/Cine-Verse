@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+</head>
+<body>
+    <table border="">
+    <tr>
+    <td>
+        <label>Weight: </label>
+        <input type="number" id="weight">
+
+        <br>
+        <label>Height:</label>
+        <input type="number" id="height">
+        
+        <br>
+        <label>Unit:</label>
+        <select id="unit" style="margin-left: 10%;">
+            <option value="met" selected>Kg / m<sup>2</sup></option>
+            <option value="imp">lb / in<sup>2</sup></option>
+        </select>
+
+        <br>
+        <button onclick="calculateBMI()" style="margin-left: 40%;">Calculate</button>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div id="output"></div>
+    </td>
+    </tr>
+    </table>
+
+    <script>
+        function calculateBMI() {
+            let weight = document.getElementById("weight").value;
+            let height = document.getElementById("height").value;
+
+            if (weight <= 0 || height <= 0) {
+                document.getElementById("output").innerHTML =
+                    `<p>Please enter valid positive values.</p>`;
+                return;
+            }
+
+            let unit = document.getElementById("unit").value;
+
+
+            let BMI = weight/(height*height);
+            if(unit === 'imp') {BMI *= 703;}
+
+            if(BMI <= 18.5) {document.getElementById("output").innerHTML = `<p>You are underweight</p>`;}
+            else if(BMI <= 24.9) {document.getElementById("output").innerHTML = `<p>You are Healthy</p>`;}
+            else if(BMI <= 29.9) {document.getElementById("output").innerHTML = `<p>You are overweight</p>`;}
+            else {document.getElementById("output").innerHTML = `<p>You are obese</p>`;}
+        }
+    </script>
+</body>
+</html>

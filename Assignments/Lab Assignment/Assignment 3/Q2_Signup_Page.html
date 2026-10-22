@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        table {
+            padding: 15px;
+        }
+        td {
+            padding: 6px;
+        }
+        input {
+            padding: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 7px 15px;
+        }
+        #output {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Signup Page</h2>
+
+    <form onsubmit="validateForm(event)">
+        <table border="1">
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" id="name" required></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" id="email" required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" id="password" minlength="8" required></td>
+            </tr>
+            <tr>
+                <td><label for="confirmPassword">Confirm Password:</label></td>
+                <td><input type="password" id="confirmPassword" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit">Sign Up</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let output = document.getElementById("output");
+
+            if (name === "" || email === "" || password === "" || confirmPassword === "") {
+                output.innerHTML = "<p>Please fill all the fields.</p>";
+            }
+            else if (password.length < 8) {
+                output.innerHTML = "<p>Password must contain at least 8 characters.</p>";
+            }
+            else if (password !== confirmPassword) {
+                output.innerHTML = "<p>Passwords do not match.</p>";
+            }
+            else {
+                output.innerHTML = "<p>Signup successful! (Demo only)</p>";
+            }
+        }
+    </script>
+</body>
+</html>
